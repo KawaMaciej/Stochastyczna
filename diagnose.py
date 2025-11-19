@@ -9,7 +9,7 @@ RED = "\033[91m"
 GREEN = "\033[92m"
 RESET = "\033[0m"
 
-def evaluate_forecasts(test, pred):
+def evaluate_forecasts(test, pred, verbose=True):
     mae = np.abs((pred - test)).mean()
     mse = ((pred - test)**2).mean()
     rmse = np.sqrt(mse)
@@ -24,14 +24,19 @@ def evaluate_forecasts(test, pred):
         (test[1:] - naive).abs().mean()
 
     r2 = r2_score(test, pred)
+    if verbose:
+        print("MAE:", mae)
+        print("RMSE:", rmse)
+        print("sMAPE (%):", smape)
+        print("MASE:", mase)
+        print("R² Score:", r2)
 
-    print("MAE:", mae)
-    print("RMSE:", rmse)
-    print("sMAPE (%):", smape)
-    print("MASE:", mase)
-    print("R² Score:", r2)
-
-    return mae, rmse, smape, mase, r2
+    return {"MAE": mae, 
+            "RMSE": rmse, 
+            "SMAPE": smape, 
+            "MASE": mase, 
+            "R^2": r2 
+            }
 
 
 def kpss_test(series, **kw):
@@ -103,11 +108,9 @@ def rolling_forecast_arima(train, test, order, start_index, dfs, scaler=None):
         history.append(test[t]) 
     
     if scaler != None:
-        # Inverse transform data (which is a Series/DataFrame)
         data_values = scaler.inverse_transform(data.values.reshape(-1, 1)).flatten()
         data = pd.Series(data_values, index=data.index)
         
-        # Inverse transform arrays
         history = scaler.inverse_transform(np.array(history).reshape(-1, 1)).flatten()
         test = scaler.inverse_transform(np.array(test).reshape(-1, 1)).flatten()
         predictions = scaler.inverse_transform(np.array(predictions).reshape(-1, 1)).flatten()
@@ -122,7 +125,8 @@ def rolling_forecast_arima(train, test, order, start_index, dfs, scaler=None):
     test_series = pd.Series(test.flatten() if hasattr(test, 'flatten') else test)
     pred_series = pd.Series(predictions)
 
-    evaluate_forecasts(test_series, pred_series)
+    metrics = evaluate_forecasts(test_series, pred_series)
     print("__________________________________")
 
-    return predictions
+    return {"Predictions": predictions,
+            "Metrics": metrics}
