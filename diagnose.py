@@ -120,8 +120,8 @@ def rolling_forecast_arima(train, test, order, start_index, dfs, scaler=None):
         predictions = scaler.inverse_transform(np.array(predictions).reshape(-1, 1)).flatten()
 
     plt.figure(figsize=(12, 6))
-    plt.plot(data.values, label='Actual')
-    plt.plot(range(start_index, start_index + len(predictions)), predictions, color='red', label='Predicted')
+    plt.plot(data.values, label='Actual',  marker='o')
+    plt.plot(range(start_index, start_index + len(predictions)), predictions, color='red', label='Predicted',  marker='o')
     plt.axvline(x=start_index, color='gray', linestyle='--', label='Forecast start')
     plt.legend()
     plt.show()
