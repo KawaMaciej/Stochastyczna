@@ -278,9 +278,9 @@ def durbin_watson_test(series):
 
 
 
-def seasonal_decompose_plot(y, figsize=(12,8), plots=False):
+def seasonal_decompose_plot(y, figsize=(12,8), plots=False, period=4):
 
-    decomposition = seasonal_decompose(y, model='additive', period=4)  
+    decomposition = seasonal_decompose(y, model='additive', period=period)  
 
     trend = decomposition.trend
     seasonal = decomposition.seasonal
