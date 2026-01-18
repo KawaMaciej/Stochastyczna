@@ -19,9 +19,13 @@ Pliki i foldery, które znajdują się w repozytorium:
 
 ---
 
-## Rozpoczęcie pracy
-
 Aby sklonować repozytorium:
 
 ```bash
-git clone https://github.com/KawaMaciej/Stochastyczna.git
+git clone https://github.com/KawaMaciej/Stochastyczna.
+
+```
+
+Strona z podobnymi projektami:
+
+https://www.kaggle.com/
