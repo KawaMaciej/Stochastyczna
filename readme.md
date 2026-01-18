@@ -1,4 +1,4 @@
-# Stochastyczna
+# Projekt proces stochastyczne 
 
 Projekt **Stochastyczna** — analiza i przykłady wykorzystania metod stochastycznych w Pythonie.
 Projekt ma na celu naukę modelowania szeregów czasowych na danych bez sezonowości poprzez analizę kwartalnych wyników finansowych Amazon (Net Income/Loss). Głównym celem jest porównanie różnych metod prognozowania i wybór najlepszego modelu oraz zastosowania tego modelu w dwóch przykładowych problemach biznesowych.
